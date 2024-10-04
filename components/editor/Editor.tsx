@@ -10,22 +10,21 @@ import { HeadingNode } from "@lexical/rich-text";
 import Theme from "./plugins/Theme";
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin";
+import Comments from "../Comments";
 
 import {
   useEditorStatus,
   liveblocksConfig,
   LiveblocksPlugin,
+  FloatingComposer,
+  FloatingThreads,
 } from "@liveblocks/react-lexical";
 import Loader from "../Loader";
+import { useThreads } from "@liveblocks/react/suspense";
 
-export function Editor({
-  roomId,
-  currentUserType,
-}: {
-  roomId: string;
-  currentUserType: UserType;
-}) {
+export function Editor({roomId, currentUserType}: {roomId: string; currentUserType: UserType;}) {
   const status = useEditorStatus();
+  const { threads } = useThreads();
 
   const initialConfig = liveblocksConfig({
     namespace: "Editor",
@@ -66,7 +65,9 @@ export function Editor({
           )}
 
           <LiveblocksPlugin>
-            
+            <FloatingComposer className="w-[350px]"/>
+            <FloatingThreads threads={threads} />
+            <Comments />
           </LiveblocksPlugin>
         </div>
       </div>
