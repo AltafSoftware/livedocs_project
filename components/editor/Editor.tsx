@@ -21,6 +21,7 @@ import {
 } from "@liveblocks/react-lexical";
 import Loader from "../Loader";
 import { useThreads } from "@liveblocks/react/suspense";
+import { DeleteModal } from "../DeleteModal";
 
 export function Editor({roomId, currentUserType}: {roomId: string; currentUserType: UserType;}) {
   const status = useEditorStatus();
@@ -42,7 +43,7 @@ export function Editor({roomId, currentUserType}: {roomId: string; currentUserTy
       <div className="editor-container size-full">
         <div className="toolbar-wrapper flex min-w-full justify-between">
           <ToolbarPlugin />
-          {/* {currentUserType === 'editor' && <DeleteModal roomId={roomId}/>} */}
+          {currentUserType === 'editor' && <DeleteModal roomId={roomId}/>}
         </div>
         <div className="editor-wrapper flex flex-col items-center justify-start">
           {/* option + i = '|' */}
